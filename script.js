@@ -63,8 +63,7 @@ function applyLang(lang) {
   langToggle.textContent = lang === 'ru' ? 'en' : 'ru';
 }
 
-let lang = localStorage.getItem('lang')
-  || (navigator.language.toLowerCase().startsWith('ru') ? 'ru' : 'en');
+let lang = localStorage.getItem('lang') || 'en';
 applyLang(lang);
 
 langToggle.addEventListener('click', () => {
