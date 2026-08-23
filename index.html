@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Obzori — Full-Stack Developer. Web, backend, frontend, mobile, developer tools.">
+  <title>Obzori — Full-Stack Developer</title>
+
+  <!-- ===== Embeds (Discord / Telegram / Twitter) ===== -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="obzori.dev">
+  <meta property="og:title" content="Obzori — Full-Stack Developer">
+  <meta property="og:description" content="Full-stack apps, developer tools & experimental projects. Currently building envgraph — an env variable usage analyzer for JS/TS.">
+  <meta property="og:url" content="https://obzori.github.io">
+  <meta property="og:image" content="https://github.com/obzori.png">
+  <meta property="og:image:width" content="460">
+  <meta property="og:image:height" content="460">
+  <meta property="og:image:alt" content="Obzori avatar">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Obzori — Full-Stack Developer">
+  <meta name="twitter:description" content="Full-stack apps, developer tools & experimental projects. Currently building envgraph.">
+  <meta name="twitter:image" content="https://github.com/obzori.png">
+
+  <meta name="theme-color" content="#0d1117">
+
+  <link rel="icon" type="image/png" href="https://github.com/obzori.png">
+
+  <link rel="stylesheet" href="styles.css">
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <!-- Pixel font for Craft Mode -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="nav">
+  <a class="logo" href="#top"><i data-lucide="terminal" class="ic"></i>obzori<span>.dev</span></a>
+  <nav class="nav-links" id="navLinks">
+    <a href="#now"><i data-lucide="flask-conical" class="ic"></i><span data-i18n="nav.now">now</span></a>
+    <a href="#projects"><i data-lucide="folder-git-2" class="ic"></i><span data-i18n="nav.projects">projects</span></a>
+    <a href="#stack"><i data-lucide="layers" class="ic"></i><span data-i18n="nav.stack">stack</span></a>
+    <a href="#contact"><i data-lucide="send" class="ic"></i><span data-i18n="nav.contact">contact</span></a>
+  </nav>
+  <div class="nav-actions">
+    <button id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+      <i data-lucide="moon" class="i-moon"></i>
+      <i data-lucide="sun" class="i-sun"></i>
+    </button>
+    <button id="langToggle" class="lang-btn mono" aria-label="Switch language">ru</button>
+    <button id="burger" aria-label="Menu" aria-expanded="false">
+      <i data-lucide="menu" class="i-menu"></i>
+      <i data-lucide="x" class="i-close"></i>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- Hero -->
+  <section class="hero reveal">
+    <p class="kicker" data-i18n="hero.kicker">Full-Stack Developer</p>
+    <h1>Hi, I'm Obzori.</h1>
+    <p class="lead" data-i18n="hero.lead">
+      I build full-stack applications, developer tools, and experimental projects —
+      practical systems, clean APIs, and tools that solve real problems.
+    </p>
+    <div class="hero-links">
+      <a href="#projects" data-i18n="hero.projects">Projects →</a>
+      <a href="https://github.com/obzori" target="_blank" rel="noopener"><i data-lucide="github" class="ic"></i>GitHub<i data-lucide="arrow-up-right" class="ic ext"></i></a>
+      <a href="#contact" data-i18n="hero.contact">Contact →</a>
+    </div>
+  </section>
+
+  <!-- Now -->
+  <section class="reveal" id="now">
+    <h2><span>/</span><span data-i18n="nav.now">now</span></h2>
+    <div class="now">
+      <i data-lucide="flask-conical" class="ic accent"></i>
+      <p><strong>envgraph</strong> — <span data-i18n="now.text">a CLI tool for analyzing environment variables and their usage across JavaScript/TypeScript projects.</span></p>
+    </div>
+    <div class="term" aria-label="envgraph version check">
+      <div class="term-bar"><span></span><span></span><span></span><em>npx — bash</em></div>
+      <pre class="term-body"><span class="t-prompt">$</span> npx envgraph -v
+<span class="t-out">envgraph v<span id="envgraphVersion">…</span></span><span class="t-cursor" aria-hidden="true"></span></pre>
+    </div>
+  </section>
+  <!-- Projects -->
+  <section class="reveal" id="projects">
+    <h2><i data-lucide="folder-git-2" class="ic"></i><span>/</span><span data-i18n="nav.projects">projects</span></h2>
+    <ul class="projects">
+      <li>
+        <a href="https://github.com/obzori/envgraph" target="_blank" rel="noopener">
+          <div class="row">
+            <h3>envgraph</h3>
+            <span class="arrow">→</span>
+          </div>
+          <p>Environment variable usage analyzer for JavaScript/TypeScript.</p>
+          <div class="tags"><span>node</span><span>cli</span><span>ts</span></div>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/obzori/routefolio" target="_blank" rel="noopener">
+          <div class="row">
+            <h3>routefolio</h3>
+            <span class="arrow">→</span>
+          </div>
+          <p data-i18n="projects.routefolio">Express route analyzer and OpenAPI documentation generator.</p>
+          <div class="tags"><span>express</span><span>openapi</span><span>ast</span></div>
+        </a>
+      </li>
+      <li>
+        <div class="nolink">
+          <div class="row">
+            <h3>MZDBF</h3>
+            <span class="badge-private" data-i18n="projects.private">private</span>
+          </div>
+          <p data-i18n="projects.mzdbf">A framework for building structured Discord bots.</p>
+          <div class="tags"><span>discord</span><span>framework</span></div>
+        </div>
+      </li>
+      <li>
+        <a href="https://www.roblox.com/games/70648428560542" target="_blank" rel="noopener">
+          <div class="row">
+            <h3>A.S.K</h3>
+            <span class="arrow">→</span>
+          </div>
+          <p data-i18n="projects.ask">A cooperative extraction horror game — stealth, tension, paranoia.</p>
+          <div class="tags"><span>roblox</span><span>horror</span><span>coop</span><a href="https://discord.gg/mSPChVwPb8" target="_blank" rel="noopener">discord ↗</a></div>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Stack -->
+  <section class="reveal" id="stack">
+    <h2><i data-lucide="layers" class="ic"></i><span>/</span><span data-i18n="nav.stack">stack</span></h2>
+    <dl class="stack">
+      <dt data-i18n="stack.backend">backend</dt><dd>Node.js · Express · Django · Flask</dd>
+      <dt data-i18n="stack.frontend">frontend</dt><dd>React · Vue · Nuxt</dd>
+      <dt data-i18n="stack.mobile">mobile</dt><dd>React Native · Swift</dd>
+      <dt data-i18n="stack.database">database</dt><dd>PostgreSQL · SQL</dd>
+      <dt data-i18n="stack.other">other</dt><dd>TypeScript · REST API · Git · Linux · AST tooling</dd>
+      <dt data-i18n="stack.fun">fun</dt><dd data-i18n="stack.fun_desc">Minecraft dev — Fabric &amp; NeoForge</dd>
+    </dl>
+  </section>
+
+  <!-- Contact -->
+  <section class="reveal" id="contact">
+    <h2><i data-lucide="send" class="ic"></i><span>/</span><span data-i18n="nav.contact">contact</span></h2>
+    <p class="lead" data-i18n="contact.lead">Open to communication, ideas, and collaboration.</p>
+    <div class="hero-links">
+      <a href="https://t.me/obzoridev" target="_blank" rel="noopener"><i data-lucide="send" class="ic"></i>Telegram<i data-lucide="arrow-up-right" class="ic ext"></i></a>
+      <a href="https://discord.com/users/1078690780908114050" target="_blank" rel="noopener"><i data-lucide="message-circle" class="ic"></i>Discord<i data-lucide="arrow-up-right" class="ic ext"></i></a>
+      <a href="https://www.roblox.com/users/1609060122/profile" target="_blank" rel="noopener"><i data-lucide="gamepad-2" class="ic"></i>Roblox<i data-lucide="arrow-up-right" class="ic ext"></i></a>
+    </div>
+  </section>
+
+  <footer class="reveal">
+    <p data-i18n="footer.text">© 2026 obzori · built by hand, no frameworks harmed</p>
+  </footer>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
