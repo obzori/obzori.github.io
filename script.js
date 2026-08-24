@@ -16,60 +16,73 @@ Promise.all([minDelay, pageLoaded]).then(() => {
 const i18n = {
   en: {
     'hero.kicker': 'Full-Stack Developer',
-    'hero.lead': 'I build full-stack applications, developer tools, and experimental projects — practical systems, clean APIs, and tools that solve real problems.',
-    'hero.projects': 'Projects →',
-    'hero.contact': 'Contact →',
+    'hero.lead': 'I build full-stack apps, dev tools, and random experiments — clean APIs, practical systems, and things that actually solve problems.',
+    'hero.projects': 'projects →',
+    'hero.contact': 'contact →',
+
     'nav.about': 'about',
-    'about.p1': "Hi! I don't know who is reading this, but let me tell you a bit about myself. I’m a full-stack developer. I enjoy designing as well as writing backend code and other tools. I value good structure.",
-    'about.p2': "Outside of web development I build Minecraft mods with Fabric & NeoForge.",
+    'about.p1': "hey! no idea who's reading this, but here's the short version. i'm a full-stack dev who likes building stuff — from interfaces and backends to weird little tools. i care about clean structure and things that just make sense.",
+    'about.p2': 'outside of web dev, i mess around with Minecraft mods using Fabric & NeoForge.',
+
     'about.f1t': 'focus',
-    'about.f1d': 'Full-stack web apps, CLI tools, AST-based analysis',
-    'about.f2t': 'currently',
+    'about.f1d': 'Full-stack apps, CLI tools, AST magic',
+    'about.f2t': 'right now',
     'about.f2d': 'Building envgraph — an env variable usage analyzer',
     'about.f3t': 'open to',
-    'about.f3d': 'Collaboration, interesting ideas and side projects',
+    'about.f3d': 'Collabs, cool ideas & side projects',
+
     'nav.now': 'now',
-    'now.text': 'a CLI tool for analyzing environment variables and their usage across JavaScript/TypeScript projects.',
+    'now.text': 'a CLI tool that finds and analyzes environment variable usage across JS/TS projects.',
+
     'nav.projects': 'projects',
     'projects.envgraph': 'Environment variable usage analyzer for JavaScript/TypeScript.',
-    'projects.routefolio': 'Express route analyzer and OpenAPI documentation generator.',
+    'projects.routefolio': 'Express route analyzer + OpenAPI docs generator.',
     'projects.private': 'private',
     'projects.mzdbf': 'A framework for building structured Discord bots.',
-    'projects.ask': 'A cooperative extraction horror game — stealth, tension, paranoia.',
+    'projects.ask': 'A co-op extraction horror game — stealth, tension & paranoia.',
+
     'nav.stack': 'stack',
     'stack.backend': 'backend',
     'stack.frontend': 'frontend',
     'stack.mobile': 'mobile',
     'stack.database': 'database',
     'stack.other': 'other',
-    'stack.fun': 'fun',
+    'stack.fun': 'for fun',
     'stack.fun_desc': 'Minecraft dev — Fabric & NeoForge',
+
     'nav.contact': 'contact',
-    'contact.lead': 'Open to communication, ideas, and collaboration.',
-    'footer.text': '© 2026 obzori · built by hand, no frameworks harmed'
+    'contact.lead': 'always down for ideas, collabs, or just talking tech.',
+
+    'footer.text': '© 2026 obzori · built by hand, no frameworks were harmed'
   },
+
   ru: {
     'hero.kicker': 'Фуллстек-разработчик',
-    'hero.lead': 'Делаю фуллстек-приложения, инструменты для разработчиков и экспериментальные проекты — практичные системы, чистые API и утилиты, решающие реальные задачи.',
-    'hero.projects': 'Проекты →',
-    'hero.contact': 'Контакты →',
-    'nav.about': 'обо мне',
-    'about.p1': 'Привет! Не знаю, кто это читает, но расскажу о себе. Я фуллстак разработчик. Люблю дизайнить а также писать бэкэнд и прочие инструменты. Ценю хорошую структуру. ',
-    'about.p2': 'Помимо веба пишу моды для Minecraft на Fabric и NeoForge.',
+    'hero.lead': 'Делаю фуллстек-приложения, инструменты для разрабов и всякие эксперименты — чистые API, нормальные системы и штуки, которые реально решают проблемы.',
+    'hero.projects': 'проекты →',
+    'hero.contact': 'контакты →',
+
+    'nav.about': 'инфа',
+    'about.p1': 'хей! хз, кто это читает, но вот коротко обо мне. я фуллстак-разраб, люблю что-нибудь собирать — от интерфейсов и бэкенда до странных маленьких утилит. ценю нормальную структуру и код, который просто имеет смысл.',
+    'about.p2': 'а вне веба иногда ковыряю моды для Minecraft на Fabric и NeoForge.',
+
     'about.f1t': 'фокус',
-    'about.f1d': 'Фуллстек веб-приложения, CLI-утилиты, AST-анализ',
-    'about.f2t': 'сейчас',
-    'about.f2d': 'Разрабатываю envgraph — анализатор переменных окружения',
+    'about.f1d': 'Фуллстек-приложения, CLI-утилиты, AST-магия',
+    'about.f2t': 'щас',
+    'about.f2d': 'Пилю envgraph — анализатор использования env-переменных',
     'about.f3t': 'открыт к',
-    'about.f3d': 'Коллаборациям, интересным идеям и сайд-проектам',
-    'nav.now': 'сейчас',
-    'now.text': 'CLI-утилита для анализа переменных окружения и их использования в JavaScript/TypeScript проектах.',
+    'about.f3d': 'Коллабам, крутым идеям и сайд-проектам',
+
+    'nav.now': 'щас',
+    'now.text': 'CLI-утилита, которая ищет и анализирует использование env-переменных в JS/TS-проектах.',
+
     'nav.projects': 'проекты',
-    'projects.envgraph': 'Анализатор использования переменных окружения для JavaScript/TypeScript.',
-    'projects.routefolio': 'Анализатор маршрутов Express и генератор OpenAPI-документации.',
+    'projects.envgraph': 'Анализатор использования env-переменных для JavaScript/TypeScript.',
+    'projects.routefolio': 'Анализатор Express-маршрутов + генератор OpenAPI-документации.',
     'projects.private': 'приватный',
     'projects.mzdbf': 'Фреймворк для создания структурированных Discord-ботов.',
-    'projects.ask': 'Кооперативный хоррор про extraction — стелс, напряжение и паранойя.',
+    'projects.ask': 'Кооперативный extraction-хоррор — стелс, напряжение и паранойя.',
+
     'nav.stack': 'стек',
     'stack.backend': 'бэкенд',
     'stack.frontend': 'фронтенд',
@@ -77,10 +90,12 @@ const i18n = {
     'stack.database': 'базы данных',
     'stack.other': 'прочее',
     'stack.fun': 'для души',
-    'stack.fun_desc': 'Разработка Minecraft — Fabric и NeoForge',
+    'stack.fun_desc': 'Minecraft-разработка — Fabric и NeoForge',
+
     'nav.contact': 'контакты',
-    'contact.lead': 'Открыт к общению, идеям и коллаборациям.',
-    'footer.text': '© 2026 obzori · сделано руками, без пострадавших фреймворков'
+    'contact.lead': 'всегда за идеи, коллабы и просто поговорить о техе.',
+
+    'footer.text': '© 2026 obzori · сделано руками, фреймворки не пострадали'
   }
 };
 
