@@ -6,7 +6,6 @@
   <meta name="description" content="Obzori — Full-Stack Developer. Web, backend, frontend, mobile, developer tools.">
   <title>Obzori — Full-Stack Developer</title>
 
-  <!-- ===== Embeds (Discord / Telegram / Twitter) ===== -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="obzori.dev">
   <meta property="og:title" content="Obzori — Full-Stack Developer">
@@ -27,16 +26,23 @@
   <link rel="icon" type="image/png" href="https://github.com/obzori.png">
 
   <link rel="stylesheet" href="styles.css">
-  <!-- Lucide icons -->
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-  <!-- Pixel font for Craft Mode -->
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
 
+<div id="preloader" aria-hidden="true">
+  <div class="pre-inner">
+    <p class="pre-logo">obzori<span>.dev</span><span class="pre-cursor"></span></p>
+    <div class="pre-bar"><span></span></div>
+    <p class="pre-hint">loading<span class="pre-dots"></span></p>
+  </div>
+</div>
+
 <header class="nav">
   <a class="logo" href="#top"><i data-lucide="terminal" class="ic"></i>obzori<span>.dev</span></a>
   <nav class="nav-links" id="navLinks">
+    <a href="#about"><i data-lucide="user" class="ic"></i><span data-i18n="nav.about">about</span></a>
     <a href="#now"><i data-lucide="flask-conical" class="ic"></i><span data-i18n="nav.now">now</span></a>
     <a href="#projects"><i data-lucide="folder-git-2" class="ic"></i><span data-i18n="nav.projects">projects</span></a>
     <a href="#stack"><i data-lucide="layers" class="ic"></i><span data-i18n="nav.stack">stack</span></a>
@@ -57,7 +63,6 @@
 
 <main id="top">
 
-  <!-- Hero -->
   <section class="hero reveal">
     <p class="kicker" data-i18n="hero.kicker">Full-Stack Developer</p>
     <h1>Hi, I'm Obzori.</h1>
@@ -72,12 +77,23 @@
     </div>
   </section>
 
-  <!-- Now -->
+  <section class="reveal" id="about">
+    <h2><i data-lucide="user" class="ic"></i><span>/</span><span data-i18n="nav.about">about</span></h2>
+    <p class="lead" data-i18n="about.p1"></p>
+    <p class="lead" data-i18n="about.p2"></p>
+    <dl class="about-facts">
+      <div><dt data-i18n="about.f1t"></dt><dd data-i18n="about.f1d"></dd></div>
+      <div><dt data-i18n="about.f2t"></dt><dd data-i18n="about.f2d"></dd></div>
+      <div><dt data-i18n="about.f3t"></dt><dd data-i18n="about.f3d"></dd></div>
+    </dl>
+  </section>
+
   <section class="reveal" id="now">
     <h2><span>/</span><span data-i18n="nav.now">now</span></h2>
     <div class="now">
       <i data-lucide="flask-conical" class="ic accent"></i>
       <p><strong>envgraph</strong> — <span data-i18n="now.text">a CLI tool for analyzing environment variables and their usage across JavaScript/TypeScript projects.</span></p>
+      <span class="status-badge"><span class="dot"></span><code id="myStatus">building envgraph</code></span>
     </div>
     <div class="term" aria-label="envgraph version check">
       <div class="term-bar"><span></span><span></span><span></span><em>npx — bash</em></div>
@@ -85,7 +101,6 @@
 <span class="t-out">envgraph v<span id="envgraphVersion">…</span></span><span class="t-cursor" aria-hidden="true"></span></pre>
     </div>
   </section>
-  <!-- Projects -->
   <section class="reveal" id="projects">
     <h2><i data-lucide="folder-git-2" class="ic"></i><span>/</span><span data-i18n="nav.projects">projects</span></h2>
     <ul class="projects">
@@ -132,7 +147,45 @@
     </ul>
   </section>
 
-  <!-- Stack -->
+  <section class="reveal" id="fandoms">
+    <h2><i data-lucide="heart" class="ic"></i><span>/</span><span data-i18n="nav.fandoms">fandoms</span></h2>
+    <p class="lead" data-i18n="fandoms.intro">Things I'm genuinely obsessed with.</p>
+    <div class="fandoms">
+      <div class="fandom">
+        <div class="f-img"><span>M</span><img src="fandoms/murder_drones.jpg" alt="Murder Drones" loading="lazy" onerror="this.remove()"></div>
+        <h3>Murder Drones</h3>
+      </div>
+      <div class="fandom">
+        <div class="f-img"><span>T</span><img src="fandoms/tadc.jpg" alt="The Amazing Digital Circus" loading="lazy" onerror="this.remove()"></div>
+        <h3>The Amazing Digital Circus</h3>
+      </div>
+      <div class="fandom">
+        <div class="f-img"><span>G</span><img src="fandoms/gameoverse.jpg" alt="Gameoverse" loading="lazy" onerror="this.remove()"></div>
+        <h3>Gameoverse</h3>
+      </div>
+      <div class="fandom">
+        <div class="f-img"><span>U</span><img src="fandoms/deltarune.jpg" alt="Undertale / Deltarune" loading="lazy" onerror="this.remove()"></div>
+        <h3>Undertale / Deltarune</h3>
+      </div>
+      <div class="fandom">
+        <div class="f-img"><span>M</span><img src="fandoms/minecraft.jpg" alt="Minecraft" loading="lazy" onerror="this.remove()"></div>
+        <h3>Minecraft</h3>
+      </div>
+      <div class="fandom">
+        <div class="f-img"><span>U</span><img src="fandoms/ultrakill.jpg" alt="Ultrakill" loading="lazy" onerror="this.remove()"></div>
+        <h3>Ultrakill</h3>
+      </div>
+      <div class="fandom">
+        <div class="f-img"><span>P</span><img src="fandoms/pressure.jpg" alt="Pressure" loading="lazy" onerror="this.remove()"></div>
+        <h3>Pressure</h3>
+      </div>
+      <div class="fandom">
+        <div class="f-img"><span>F</span><img src="fandoms/forsaken.jpg" alt="Forsaken" loading="lazy" onerror="this.remove()"></div>
+        <h3>Forsaken</h3>
+      </div>
+    </div>
+  </section>
+
   <section class="reveal" id="stack">
     <h2><i data-lucide="layers" class="ic"></i><span>/</span><span data-i18n="nav.stack">stack</span></h2>
     <dl class="stack">
@@ -145,7 +198,6 @@
     </dl>
   </section>
 
-  <!-- Contact -->
   <section class="reveal" id="contact">
     <h2><i data-lucide="send" class="ic"></i><span>/</span><span data-i18n="nav.contact">contact</span></h2>
     <p class="lead" data-i18n="contact.lead">Open to communication, ideas, and collaboration.</p>
@@ -161,6 +213,7 @@
   </footer>
 </main>
 
+<script src="status.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
