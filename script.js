@@ -1,3 +1,4 @@
+// ===== Preloader (min 1 second) =====
 const preloader = document.getElementById('preloader');
 document.body.classList.add('loading');
 
@@ -11,6 +12,7 @@ Promise.all([minDelay, pageLoaded]).then(() => {
   document.body.classList.remove('loading');
 });
 
+// ===== Localization (ru / en) =====
 const i18n = {
   en: {
     'hero.kicker': 'Full-Stack Developer',
@@ -18,16 +20,14 @@ const i18n = {
     'hero.projects': 'Projects →',
     'hero.contact': 'Contact →',
     'nav.about': 'about',
-    'about.p1': "I'm a full-stack developer who enjoys building things end-to-end: from database schema and API design to the last pixel of the UI. I care about clean architecture, developer experience, and tools that actually get used.",
-    'about.p2': "Outside of web development I build Minecraft mods with Fabric & NeoForge and experiment with game design — it keeps the engineering side playful.",
+    'about.p1': "Hi! I don't know who is reading this, but let me tell you a bit about myself. I’m a full-stack developer. I enjoy designing as well as writing backend code and other tools. I value good structure.",
+    'about.p2': "Outside of web development I build Minecraft mods with Fabric & NeoForge.",
     'about.f1t': 'focus',
     'about.f1d': 'Full-stack web apps, CLI tools, AST-based analysis',
     'about.f2t': 'currently',
     'about.f2d': 'Building envgraph — an env variable usage analyzer',
     'about.f3t': 'open to',
     'about.f3d': 'Collaboration, interesting ideas and side projects',
-    'nav.fandoms': 'fandoms',
-    'fandoms.intro': "Things I'm genuinely obsessed with.",
     'nav.now': 'now',
     'now.text': 'a CLI tool for analyzing environment variables and their usage across JavaScript/TypeScript projects.',
     'nav.projects': 'projects',
@@ -54,16 +54,14 @@ const i18n = {
     'hero.projects': 'Проекты →',
     'hero.contact': 'Контакты →',
     'nav.about': 'обо мне',
-    'about.p1': 'Я фуллстек-разработчик, которому нравится делать вещи от начала до конца: от схемы базы данных и дизайна API до последнего пикселя интерфейса. Ценю чистую архитектуру, удобство для разработчиков и инструменты, которыми реально пользуются.',
-    'about.p2': 'Помимо веба пишу моды для Minecraft на Fabric и NeoForge и экспериментирую с геймдизайном — это держит инженерную часть в тонусе.',
+    'about.p1': 'Привет! Не знаю, кто это читает, но расскажу о себе. Я фуллстак разработчик. Люблю дизайнить а также писать бэкэнд и прочие инструменты. Ценю хорошую структуру. ',
+    'about.p2': 'Помимо веба пишу моды для Minecraft на Fabric и NeoForge.',
     'about.f1t': 'фокус',
     'about.f1d': 'Фуллстек веб-приложения, CLI-утилиты, AST-анализ',
     'about.f2t': 'сейчас',
     'about.f2d': 'Разрабатываю envgraph — анализатор переменных окружения',
     'about.f3t': 'открыт к',
     'about.f3d': 'Коллаборациям, интересным идеям и сайд-проектам',
-    'nav.fandoms': 'фандомы',
-    'fandoms.intro': 'Вещи, которыми я искренне увлечён.',
     'nav.now': 'сейчас',
     'now.text': 'CLI-утилита для анализа переменных окружения и их использования в JavaScript/TypeScript проектах.',
     'nav.projects': 'проекты',
@@ -100,19 +98,13 @@ function applyLang(lang) {
 let lang = localStorage.getItem('lang') || 'en';
 applyLang(lang);
 
-if (window.MY_STATUS) {
-  const ms = window.MY_STATUS;
-  if (ms.activity) i18n.en['now.text'] = i18n.ru['now.text'] = ms.activity;
-  const badge = document.getElementById('myStatus');
-  if (badge && ms.status) badge.textContent = ms.status;
-}
-
 langToggle.addEventListener('click', () => {
   lang = lang === 'ru' ? 'en' : 'ru';
   localStorage.setItem('lang', lang);
   applyLang(lang);
 });
 
+// ===== Theme toggle =====
 const root = document.documentElement;
 const toggle = document.getElementById('themeToggle');
 const stored = localStorage.getItem('theme');
@@ -128,6 +120,7 @@ toggle.addEventListener('click', () => {
   localStorage.setItem('theme', next);
 });
 
+// ===== Reveal on scroll =====
 const observer = new IntersectionObserver(
   (entries) => {
     for (const entry of entries) {
@@ -142,8 +135,10 @@ const observer = new IntersectionObserver(
 
 document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
 
+// ===== Lucide icons =====
 if (window.lucide) lucide.createIcons();
 
+// ===== Burger menu =====
 const burger = document.getElementById('burger');
 const navLinks = document.getElementById('navLinks');
 
@@ -153,6 +148,7 @@ burger.addEventListener('click', () => {
   burger.setAttribute('aria-expanded', String(open));
 });
 
+// close the mobile menu after clicking a link
 navLinks.querySelectorAll('a').forEach((a) =>
   a.addEventListener('click', () => {
     navLinks.classList.remove('open');
@@ -161,6 +157,7 @@ navLinks.querySelectorAll('a').forEach((a) =>
   })
 );
 
+// ===== envgraph version from npm registry =====
 (async () => {
   const el = document.getElementById('envgraphVersion');
   if (!el) return;
@@ -174,6 +171,7 @@ navLinks.querySelectorAll('a').forEach((a) =>
   }
 })();
 
+// ===== Craft Mode (type "craft") =====
 const CRAFT_WORD = 'craft';
 let craftBuffer = '';
 
