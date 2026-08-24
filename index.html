@@ -39,6 +39,13 @@
   </div>
 </div>
 
+<div id="gate" aria-hidden="true">
+  <div class="gate-inner">
+    <p class="gate-title" data-i18n="gate.title">Press anywhere to continue</p>
+    <p class="gate-note" data-i18n="gate.note">This site has music. Use the player in the bottom-left corner to lower the volume.</p>
+  </div>
+</div>
+
 <header class="nav">
   <a class="logo" href="#top"><i data-lucide="terminal" class="ic"></i>obzori<span>.dev</span></a>
   <nav class="nav-links" id="navLinks">
@@ -212,6 +219,27 @@
     <p data-i18n="footer.text">© 2026 obzori · built by hand, no frameworks harmed</p>
   </footer>
 </main>
+
+<div id="player" class="hidden">
+  <img id="plCover" src="music/cover.jpg" alt="" loading="lazy" onerror="this.classList.add('noimg')">
+  <div class="pl-body">
+    <div class="pl-top">
+      <button id="plToggle" aria-label="Play or pause">
+        <i data-lucide="play" class="i-play"></i>
+        <i data-lucide="pause" class="i-pause"></i>
+      </button>
+      <div class="pl-meta">
+        <span id="plTitle">Obzori - Atrium</span>
+        <input id="plSeek" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek">
+      </div>
+    </div>
+    <div class="pl-vol">
+      <i data-lucide="volume-2" class="ic"></i>
+      <input id="plVol" type="range" min="0" max="1" step="0.01" value="0.05" aria-label="Volume">
+      <span id="plTime">0:00</span>
+    </div>
+  </div>
+</div>
 
 <script src="status.js"></script>
 <script src="script.js"></script>

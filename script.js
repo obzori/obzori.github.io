@@ -1,5 +1,6 @@
 // ===== Preloader (min 1 second) =====
 const preloader = document.getElementById('preloader');
+const gate = document.getElementById('gate');
 document.body.classList.add('loading');
 
 const minDelay = new Promise((resolve) => setTimeout(resolve, 1000));
@@ -10,6 +11,7 @@ const pageLoaded = document.readyState === 'complete'
 Promise.all([minDelay, pageLoaded]).then(() => {
   preloader.classList.add('done');
   document.body.classList.remove('loading');
+  gate.classList.add('ready');
 });
 
 // ===== Localization (ru / en) =====
@@ -56,7 +58,10 @@ const i18n = {
     'nav.contact': 'contact',
     'contact.lead': 'got an idea? wanna collab? just wanna yap about tech? hit me up.',
 
-    'footer.text': '© 2026 obzori · built by hand · 0 frameworks were harmed'
+    'footer.text': '© 2026 obzori · built by hand · 0 frameworks were harmed',
+
+    'gate.title': 'press anywhere to continue',
+    'gate.note': 'this site has music. use the player in the bottom-left corner to lower the volume.'
   },
 
   ru: {
@@ -101,7 +106,10 @@ const i18n = {
     'nav.contact': 'контакты',
     'contact.lead': 'есть идея? хочешь коллаб? просто хочешь поболтать о техе? пиши.',
 
-    'footer.text': '© 2026 obzori · сделано руками · 0 фреймворков пострадало'
+    'footer.text': '© 2026 obzori · сделано руками · 0 фреймворков пострадало',
+
+    'gate.title': 'нажмите по экрану чтобы продолжить',
+    'gate.note': 'на сайте имеется музыка. слева снизу будет плеер, где вы можете понизить громкость.'
   }
 };
 
@@ -211,6 +219,57 @@ document.addEventListener('keydown', (e) => {
     craftBuffer = '';
     toggleCraft();
   }
+});
+
+const audio = new Audio('music/track.mp3');
+audio.loop = true;
+audio.preload = 'auto';
+audio.volume = 0.05;
+
+const player = document.getElementById('player');
+const plToggle = document.getElementById('plToggle');
+const plSeek = document.getElementById('plSeek');
+const plVol = document.getElementById('plVol');
+const plTime = document.getElementById('plTime');
+
+function fmt(s) {
+  if (!isFinite(s)) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return m + ':' + String(sec).padStart(2, '0');
+}
+
+let musicStarted = false;
+gate.addEventListener('click', () => {
+  gate.classList.add('gone');
+  player.classList.remove('hidden');
+  if (!musicStarted) {
+    musicStarted = true;
+    audio.play().catch(() => {});
+  }
+});
+
+plToggle.addEventListener('click', () => {
+  if (audio.paused) audio.play().catch(() => {});
+  else audio.pause();
+});
+
+audio.addEventListener('play', () => player.classList.add('playing'));
+audio.addEventListener('pause', () => player.classList.remove('playing'));
+
+audio.addEventListener('timeupdate', () => {
+  if (!plSeek.matches(':active')) {
+    plSeek.value = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
+  }
+  plTime.textContent = fmt(audio.currentTime);
+});
+
+plSeek.addEventListener('input', () => {
+  if (audio.duration) audio.currentTime = (plSeek.value / 100) * audio.duration;
+});
+
+plVol.addEventListener('input', () => {
+  audio.volume = plVol.value;
 });
 
 
