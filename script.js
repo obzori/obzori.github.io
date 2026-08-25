@@ -224,7 +224,6 @@ document.addEventListener('keydown', (e) => {
 const audio = new Audio('music/track.mp3');
 audio.loop = true;
 audio.preload = 'auto';
-audio.volume = 0.05;
 
 const player = document.getElementById('player');
 const plToggle = document.getElementById('plToggle');
@@ -232,82 +231,133 @@ const plSeek = document.getElementById('plSeek');
 const plVol = document.getElementById('plVol');
 const plTime = document.getElementById('plTime');
 
+const DEFAULT_VOL = 0.05;
+
+let audioCtx = null;
+let gainNode = null;
+let musicStarted = false;
+
 function fmt(s) {
   if (!isFinite(s)) return '0:00';
+
   const m = Math.floor(s / 60);
   const sec = Math.floor(s % 60);
+
   return m + ':' + String(sec).padStart(2, '0');
 }
 
-let musicStarted = false;
-gate.addEventListener('click', () => {
-  gate.classList.add('gone');
-  player.classList.remove('hidden');
-  if (!musicStarted) {
-    musicStarted = true;
-    initWebAudio();
-    audio.play().catch(() => {});
-  }
-});
-
-plToggle.addEventListener('click', () => {
-  if (audio.paused) audio.play().catch(() => {});
-  else audio.pause();
-});
-
-audio.addEventListener('play', () => player.classList.add('playing'));
-audio.addEventListener('pause', () => player.classList.remove('playing'));
-
-audio.addEventListener('timeupdate', () => {
-  if (!plSeek.matches(':active')) {
-    plSeek.value = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
-  }
-  plTime.textContent = fmt(audio.currentTime);
-});
-
-plSeek.addEventListener('input', () => {
-  if (audio.duration) audio.currentTime = (plSeek.value / 100) * audio.duration;
-});
-
-// Volume: HTMLMediaElement.volume is ignored on iOS/Safari,
-// so route audio through Web Audio API GainNode when possible.
-const DEFAULT_VOL = parseFloat(plVol.value) || 0.05;
-let audioCtx = null;
-let gainNode = null;
-
 function initWebAudio() {
-  const supported = typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined';
-  if (audioCtx || !supported) return;
+  if (audioCtx) return;
+
+  const Ctx = window.AudioContext || window.webkitAudioContext;
+  if (!Ctx) {
+    audio.volume = DEFAULT_VOL;
+    return;
+  }
+
   try {
-    const Ctx = window.AudioContext || window.webkitAudioContext;
     audioCtx = new Ctx();
-    const src = audioCtx.createMediaElementSource(audio);
+
+    const source = audioCtx.createMediaElementSource(audio);
+
     gainNode = audioCtx.createGain();
     gainNode.gain.value = DEFAULT_VOL;
-    src.connect(gainNode);
+
+    source.connect(gainNode);
     gainNode.connect(audioCtx.destination);
-    // Once routed through Web Audio, element volume must stay at max
+
+    // iOS ignores this value when Web Audio is used.
     audio.volume = 1;
   } catch (e) {
-    // Fallback to plain element volume
+    console.warn('Web Audio initialization failed:', e);
+
     audioCtx = null;
     gainNode = null;
     audio.volume = DEFAULT_VOL;
   }
 }
 
-function setVolume(v) {
-  v = Math.min(1, Math.max(0, parseFloat(v) || 0));
+function setVolume(value) {
+  const volume = Math.min(
+    1,
+    Math.max(0, Number(value))
+  );
+
   if (gainNode) {
-    gainNode.gain.value = v;
+    gainNode.gain.setTargetAtTime(
+      volume,
+      audioCtx.currentTime,
+      0.01
+    );
   } else {
-    try { audio.volume = v; } catch (e) {}
+    audio.volume = volume;
   }
 }
 
-plVol.addEventListener('input', () => setVolume(plVol.value));
-plVol.addEventListener('change', () => setVolume(plVol.value));
+gate.addEventListener('click', async () => {
+  gate.classList.add('gone');
+  player.classList.remove('hidden');
 
+  if (!musicStarted) {
+    musicStarted = true;
 
+    initWebAudio();
 
+    if (audioCtx?.state === 'suspended') {
+      await audioCtx.resume();
+    }
 
+    setVolume(plVol.value || DEFAULT_VOL);
+
+    try {
+      await audio.play();
+    } catch (e) {
+      console.warn('Audio playback failed:', e);
+    }
+  }
+});
+
+plToggle.addEventListener('click', async () => {
+  if (audio.paused) {
+    if (audioCtx?.state === 'suspended') {
+      await audioCtx.resume();
+    }
+
+    await audio.play().catch(() => {});
+  } else {
+    audio.pause();
+  }
+});
+
+audio.addEventListener('play', () => {
+  player.classList.add('playing');
+});
+
+audio.addEventListener('pause', () => {
+  player.classList.remove('playing');
+});
+
+audio.addEventListener('timeupdate', () => {
+  if (!plSeek.matches(':active')) {
+    plSeek.value = audio.duration
+      ? (audio.currentTime / audio.duration) * 100
+      : 0;
+  }
+
+  plTime.textContent = fmt(audio.currentTime);
+});
+
+plSeek.addEventListener('input', () => {
+  if (audio.duration) {
+    audio.currentTime =
+      (plSeek.value / 100) * audio.duration;
+  }
+});
+
+plVol.addEventListener('input', () => {
+  setVolume(plVol.value);
+});
+
+plVol.addEventListener('change', () => {
+  setVolume(plVol.value);
+});
