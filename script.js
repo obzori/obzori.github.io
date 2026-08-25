@@ -245,6 +245,7 @@ gate.addEventListener('click', () => {
   player.classList.remove('hidden');
   if (!musicStarted) {
     musicStarted = true;
+    initWebAudio();
     audio.play().catch(() => {});
   }
 });
@@ -268,9 +269,44 @@ plSeek.addEventListener('input', () => {
   if (audio.duration) audio.currentTime = (plSeek.value / 100) * audio.duration;
 });
 
-plVol.addEventListener('input', () => {
-  audio.volume = plVol.value;
-});
+// Volume: HTMLMediaElement.volume is ignored on iOS/Safari,
+// so route audio through Web Audio API GainNode when possible.
+const DEFAULT_VOL = parseFloat(plVol.value) || 0.05;
+let audioCtx = null;
+let gainNode = null;
+
+function initWebAudio() {
+  const supported = typeof AudioContext !== 'undefined' || typeof webkitAudioContext !== 'undefined';
+  if (audioCtx || !supported) return;
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    audioCtx = new Ctx();
+    const src = audioCtx.createMediaElementSource(audio);
+    gainNode = audioCtx.createGain();
+    gainNode.gain.value = DEFAULT_VOL;
+    src.connect(gainNode);
+    gainNode.connect(audioCtx.destination);
+    // Once routed through Web Audio, element volume must stay at max
+    audio.volume = 1;
+  } catch (e) {
+    // Fallback to plain element volume
+    audioCtx = null;
+    gainNode = null;
+    audio.volume = DEFAULT_VOL;
+  }
+}
+
+function setVolume(v) {
+  v = Math.min(1, Math.max(0, parseFloat(v) || 0));
+  if (gainNode) {
+    gainNode.gain.value = v;
+  } else {
+    try { audio.volume = v; } catch (e) {}
+  }
+}
+
+plVol.addEventListener('input', () => setVolume(plVol.value));
+plVol.addEventListener('change', () => setVolume(plVol.value));
 
 
 
